@@ -1,11 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { getYoxs } from "../helpers/yoxs";
+import YoxCard from "../components/YoxCard";
 
 const Home = () => {
-    return (
-        <div>
-            <h1>bienvenido</h1>
-        </div>
-    )
-}
+  const [yox, setYox] = useState({
+    datos: [],
+    loading: true,
+  });
 
-export default Home
+  useEffect(() => {
+    getYoxs().then((res) => {
+      setYox({
+        datos: res.yoxs,
+        loading: false,
+      });
+    });
+  }, []);
+
+  return (
+    <div className="container-fluid">
+      <YoxCard yox={yox} />
+    </div>
+  );
+};
+
+export default Home;
