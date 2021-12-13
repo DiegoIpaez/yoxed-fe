@@ -90,7 +90,7 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
                   required
                   value={formValue.titulo}
                   onChange={handleChange}
-                  maxLength={20}
+                  maxLength={55}
                   minLength={1}
                 />
               </div>
@@ -104,7 +104,7 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
                   required
                   value={formValue.url}
                   onChange={handleChange}
-                  maxLength={20}
+                  maxLength={1000}
                   minLength={1}
                 />
               </div>

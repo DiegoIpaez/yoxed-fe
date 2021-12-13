@@ -29,7 +29,7 @@ export const getComentario = async (id) => {
 };
 
 export const getComentariosYox = async (id) => {
-	const resp = await fetch(`${url}/categId/${id}`, {
+	const resp = await fetch(`${url}/yoxId/${id}`, {
 		method: "GET",
 
 		headers: {
