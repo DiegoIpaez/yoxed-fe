@@ -3,9 +3,15 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { getCategorias } from "../helpers/categorias";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import ModalPostYox from "./modals/ModalPostYox";
 
 const NavBar = () => {
   const [categorias, setCategorias] = useState([]);
+  const [actualizar, setActualizar] = useState("");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     getCategorias().then((res) => {
@@ -80,8 +86,16 @@ const NavBar = () => {
                   </span>
                 </NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link eventKey={2} as={Link} to="/cart" className="pt-3 ps-1">
-                YOX <i className="far fa-plus-square"></i>
+              <Nav.Link eventKey={2} className=" ps-1">
+                <button
+                  className="btn btn-primary text-white"
+                  onClick={() => {
+                    setActualizar("");
+                    handleShow();
+                  }}
+                >
+                  YOX <i className="far fa-plus-square"></i>
+                </button>
               </Nav.Link>
               <Nav.Link className="pt-3 ps-1"></Nav.Link>
               <Nav.Link className="pt-3 ps-1"></Nav.Link>
@@ -89,6 +103,11 @@ const NavBar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <ModalPostYox
+        show={show}
+        handleClose={handleClose}
+        actualizar={actualizar}
+      />
     </>
   );
 };
