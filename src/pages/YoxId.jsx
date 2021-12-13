@@ -32,10 +32,10 @@ const YoxId = () => {
       <div className="container-fluid mt-3">
         <div className="row">
           {/* Yox */}
-          <div className="col-md-6 col-12 mb-5 ps-0 pe-0">
-            <div className="container ps-0 pe-0">
+          <div className="col-md-6 col-12 mb-5 ">
+            <div className="container ">
               <div
-                className="row me-3 pt-2 pb-2 text-white mb-2"
+                className="row pt-2 pb-2 text-white mb-2"
                 style={{ backgroundColor: "black", borderRadius: "9px" }}
               >
                 <span>YOXED/{categoriaYox.nombre}</span>
@@ -52,7 +52,7 @@ const YoxId = () => {
                     alt=""
                   />
                 </div>
-                <div className="col-md-5 col-12 pe-0">
+                <div className="col-md-5 col-12">
                   <h3>{yoxId.titulo}</h3>
                   <p>{yoxId.descripcion}</p>
                 </div>
@@ -61,15 +61,16 @@ const YoxId = () => {
           </div>
           {/* Yox */}
           {/* Comentarios */}
-          <div className="col-md-6 col-12 ps-0 pe-0">
-            <div className="container ps-0 pe-0">
-              <div className="row">
+          <div className="col-md-6 col-12">
+            <div className="container  ps-0 pe-0">
+             
                 <Comentario
                   comentarioId={comentarioId}
                   totalComent={totalComent}
                   userYox={userYox}
+                  id={id}
                 />
-              </div>
+            
             </div>
           </div>
           {/* Comentarios */}
