@@ -22,7 +22,7 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
         });
       });
     }
-  }, [actualizar]);
+  }, [actualizar,id]);
 
   const handleChange = (e) => {
     setFormValue({
@@ -56,9 +56,8 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
   return (
     <>
       <div
-        className="row pt-2 pb-2 mb-1 text-white"
+        className="row pt-2 pb-2 bg-dark mb-1 text-white"
         style={{
-          backgroundColor: "black",
           borderTopLeftRadius: "9px",
           borderBottomLeftRadius: "9px",
         }}
@@ -68,7 +67,7 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
       {/* POST */}
       <div
         className="row bg-dark text-white mb-2 mt-2 pb-2"
-        style={{ borderRadius: "7px" }}
+        style={{ borderTopLeftRadius: "9px", borderBottomLeftRadius: "9px" }}
       >
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -105,10 +104,10 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
       {/* COMENTARIOS */}
       {comentarioId.map((comentario) => (
         <div
-          className="row mb-1 pt-2 pb-2 text-white  ps-0 pe-0"
+          className="row mb-1 pt-2 pb-2 text-white bg-dark  ps-0 pe-0"
           style={{
-            backgroundColor: "black",
-            borderRadius: "10px",
+            borderTopLeftRadius: "9px",
+            borderBottomLeftRadius: "9px",
           }}
           key={comentario._id}
         >

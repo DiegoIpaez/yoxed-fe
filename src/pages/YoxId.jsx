@@ -35,12 +35,12 @@ const YoxId = () => {
           <div className="col-md-6 col-12 mb-5 ">
             <div className="container ">
               <div
-                className="row pt-2 pb-2 text-white mb-2"
-                style={{ backgroundColor: "black", borderRadius: "9px" }}
+                className="row bg-dark pt-2 pb-2 text-white mb-3"
+                style={{ borderRadius: "9px" }}
               >
                 <span>YOXED/{categoriaYox.nombre}</span>
               </div>
-              <div className="row">
+              <div className="row text-white">
                 <div className="col-md-7 col-12 mb-2 ps-0 pe-0">
                   <img
                     src={yoxId.url}
