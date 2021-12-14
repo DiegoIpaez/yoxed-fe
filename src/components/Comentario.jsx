@@ -121,12 +121,12 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
           <div className="col-11">
             <h6>
               User
-              {comentario.usuario === userYox.uid ? (
+              {comentario.usuario["uid"] === userYox.uid ? (
                 <>
-                  {comentario.usuario} <span style={{ color: "red" }}>OP</span>{" "}
+                  {comentario.usuario["nombre"]} <span style={{ color: "red" }}>OP</span>{" "}
                 </>
               ) : (
-                <>{comentario.usuario}</>
+                <>{comentario.usuario["nombre"]}</>
               )}
             </h6>
             <p>{comentario.comentario}</p>
