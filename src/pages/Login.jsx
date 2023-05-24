@@ -73,11 +73,11 @@ export default function Login() {
         <div className="col-md-6 col-12 login-form pt-4 pb-4">
           <div className="container">
             {/* Cuerpo Login*/}
-            <div className="row">
+            <div className="row text-white ">
               <Form onSubmit={handleSumbit}>
-                <h3 className="bienvenidoLogin text-center"> Bienvenido a KheDona</h3>
+                <h3 className="text-center"> Bienvenido a Yoxed</h3>
 
-                <hr className="userlogin-hr mb-4" style={{ color: '#d31c77' }} />
+                <hr className="userlogin-hr mb-4" style={{ color: 'white' }} />
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>
                     Email:<span className="text-required">*</span>

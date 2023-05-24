@@ -38,7 +38,6 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
     }
   }, [actualizar]);
 
-
   const handleChange = (e) => {
     setFormValue({
       ...formValue,
@@ -74,10 +73,7 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
-        <div className="cuerpoModal">
-          <Modal.Header className="tituloModal">
-            <Modal.Title className="text-white"></Modal.Title>
-          </Modal.Header>
+        <div className="bg-dark text-white ">
           <form onSubmit={handleSubmit}>
             <Modal.Body>
               <div className="form-group mb-3">
@@ -86,7 +82,7 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
                   type="text"
                   name="titulo"
                   className="form-control"
-                  placeholder="Ej: Pedro"
+                  placeholder="Voxed volvio.."
                   required
                   value={formValue.titulo}
                   onChange={handleChange}
@@ -95,31 +91,17 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
                 />
               </div>
               <div className="form-group mb-3">
-                <label>Url</label>
+                <label>Url:img</label>
                 <input
                   type="text"
                   name="url"
                   className="form-control"
-                  placeholder="Ej: Perez"
+                  placeholder="www.img.com"
                   required
                   value={formValue.url}
                   onChange={handleChange}
                   maxLength={1000}
                   minLength={1}
-                />
-              </div>
-              <div className="form-group mb-3">
-                <label>Descripcion</label>
-                <input
-                  type="text"
-                  name="descripcion"
-                  className="form-control"
-                  placeholder="Ej: Av. roca 335"
-                  required
-                  value={formValue.descripcion}
-                  onChange={handleChange}
-                  maxLength={100}
-                  minLength={5}
                 />
               </div>
               <div className="form-group mb-3">
@@ -140,20 +122,35 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
                 </select>
               </div>
 
+              <div className="form-group mb-3">
+                <label>Descripcion</label>
+                <textarea
+                  type="text"
+                  name="descripcion"
+                  className="form-control"
+                  placeholder="Escriba el redactaso.."
+                  required
+                  value={formValue.descripcion}
+                  onChange={handleChange}
+                  maxLength={100}
+                  minLength={5}
+                />
+              </div>
               {/*  */}
-            </Modal.Body>
-            <Modal.Footer>
-              <div className="container">
-                <Button variant="success" type="submit" disabled={loading}>
-                  Guardar cambios
-                </Button>
+              <div className="container mt-4">
+                <div className="row mb-1">
+                  <Button variant="success" type="submit" disabled={loading}>
+                    Enviar yox
+                  </Button>
+                </div>
+
                 <div className="row">
-                  <Button className="btn-registrar-login" onClick={handleClose}>
-                    ¿Ya tienes una cuenta? Haz clic aquí.
+                  <Button variant="danger" onClick={handleClose}>
+                    Cerrar
                   </Button>
                 </div>
               </div>
-            </Modal.Footer>
+            </Modal.Body>
           </form>
         </div>
       </Modal>
