@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { postComentario, getComentario } from "../helpers/comentarios";
+import { postComentario, getComentario } from "../services/commentary.service";
 
 const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
   const [actualizar, setActualizar] = useState("");

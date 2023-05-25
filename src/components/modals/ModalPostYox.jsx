@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { getCategorias } from "../../helpers/categorias";
-import { postYox, getYox } from "../../helpers/yoxs";
+import { getCategorias } from "../../services/category.service";
+import { postYox, getYox } from "../../services/yoxs.service";
 
 const ModalPostYox = ({ show, handleClose, actualizar }) => {
   const [categorias, setCategorias] = useState([]);

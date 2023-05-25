@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
-import { postAuth } from "../helpers/autenticador";
+import { postAuth } from "../services/auth.service";
 import { Form, Button } from "react-bootstrap";
 import ModalRegisUser from "../components/modals/ModalRegisUser";
 

@@ -8,7 +8,7 @@ const YoxCard = ({ yox }) => {
         <h1 className="text-center mt-5">Cargando...</h1>
       ) : (
         <div className="row">
-          {yox.datos.map((yox) => (
+          {yox.data.map((yox) => (
             <div
               className="col-xl-2 col-lg-4 col-md-6 col-6 ps-0 pe-0 mt-1"
               key={yox._id}
