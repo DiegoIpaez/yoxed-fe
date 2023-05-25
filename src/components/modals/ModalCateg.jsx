@@ -3,7 +3,7 @@ import {
   getCategoriaId,
   postCategoria,
   putCategoria,
-} from "../../helpers/categorias";
+} from "../../services/category.service";
 import { Modal, Button } from "react-bootstrap";
 
 const ModalCateg = ({ show, handleClose, actualizar }) => {

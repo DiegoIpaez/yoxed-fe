@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { postUsuario } from "../../helpers/usuarios";
+import { postUsuario } from "../../services/user.service";
 import { Modal, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 

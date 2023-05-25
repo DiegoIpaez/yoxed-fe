@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { getYox } from "../helpers/yoxs";
-import { getComentariosYox } from "../helpers/comentarios";
+import { useParams } from "react-router-dom";
+import { getYox } from "../services/yoxs.service";
+import { getComentariosYox } from "../services/commentary.service";
 import Comentario from "../components/Comentario";
 
 const YoxId = () => {
@@ -13,18 +13,33 @@ const YoxId = () => {
   const [totalComent, setTotalComent] = useState("");
 
   useEffect(() => {
-    getYox(id).then((res) => {
-      setYoxId(res.yox);
-      setuserYox(res.yox.usuario);
-      setCategoriaYox(res.yox.categoria);
-    });
+    try {
+      const fetchData = async () => {
+        const res = await getYox(id);
+        setYoxId(res.yox);
+        setuserYox(res.yox.usuario);
+        setCategoriaYox(res.yox.categoria);
+      };
+      fetchData();
+    } catch (error) {
+      setYoxId([]);
+      setuserYox([]);
+      setCategoriaYox([]);
+    }
   }, [id]);
 
   useEffect(() => {
-    getComentariosYox(id).then((res) => {
-      setComentarioId(res.comentario);
+    try {
+      const fetchData = async () => {
+        const res = await getComentariosYox(id);
+        setComentarioId(res.comentario);
       setTotalComent(res.Total);
-    });
+      };
+      fetchData();
+    } catch (error) {
+      setComentarioId([]);
+      setTotalComent("");
+    }
   }, [id]);
 
   return (
@@ -63,14 +78,12 @@ const YoxId = () => {
           {/* Comentarios */}
           <div className="col-md-6 col-12">
             <div className="container  ps-0 pe-0">
-             
-                <Comentario
-                  comentarioId={comentarioId}
-                  totalComent={totalComent}
-                  userYox={userYox}
-                  id={id}
-                />
-            
+              <Comentario
+                comentarioId={comentarioId}
+                totalComent={totalComent}
+                userYox={userYox}
+                id={id}
+              />
             </div>
           </div>
           {/* Comentarios */}

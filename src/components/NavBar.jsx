@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
-import { getCategorias } from "../helpers/categorias";
+import { getCategorias } from "../services/category.service";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import ModalPostYox from "./modals/ModalPostYox";
 

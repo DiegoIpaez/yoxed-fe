@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { getYoxs } from "../helpers/yoxs";
+import { getYoxs } from "../services/yoxs.service";
 import YoxCard from "../components/YoxCard";
 
 const Home = () => {
   const [yox, setYox] = useState({
-    datos: [],
+    data: [],
     loading: true,
   });
 
   useEffect(() => {
     getYoxs().then((res) => {
       setYox({
-        datos: res.yoxs,
+        data: res.yoxs,
         loading: false,
       });
     });
