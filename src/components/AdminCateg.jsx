@@ -63,7 +63,7 @@ const AdminCateg = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container text-white">
       {/* Titulo */}
       <div className="row ">
         <div className="col">
