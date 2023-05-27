@@ -1,13 +1,11 @@
+"use client"
 import React, { useEffect, useRef, useState } from "react";
-import { useHistory } from "react-router";
-import { postAuth } from "../services/auth.service";
 import { Form, Button } from "react-bootstrap";
-import ModalRegisUser from "../components/modals/ModalRegisUser";
+import { postAuth } from "../../services/auth.service";
+import ModalRegisUser from "../../components/modals/ModalRegisUser";
 
 export default function Login() {
   const isMounted = useRef(true);
-
-  const history = useHistory();
 
   const [formValue, setFormvalue] = useState({
     email: "",
@@ -18,14 +16,14 @@ export default function Login() {
 
   const [login, setLogin] = useState({});
 
-  useEffect(() => {
-    if (login.token) {
-      localStorage.setItem("auth", JSON.stringify(login));
-      setTimeout(() => {
-        history.push("/");
-      }, 1000);
-    }
-  }, [login, history]);
+//   useEffect(() => {
+//     if (login.token) {
+//       localStorage.setItem("auth", JSON.stringify(login));
+//       setTimeout(() => {
+//         history.push("/");
+//       }, 1000);
+//     }
+//   }, [login, history]);
 
   useEffect(() => {
     return () => {
