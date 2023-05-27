@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from "react";
 import { getYoxs } from "../services/yoxs.service";
 import YoxCard from "../components/YoxCard";

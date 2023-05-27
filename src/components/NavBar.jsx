@@ -1,6 +1,6 @@
+"use client"
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router";
+import Link from "next/link";
 import { getCategorias } from "../services/category.service";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import ModalPostYox from "./modals/ModalPostYox";
@@ -18,12 +18,8 @@ const NavBar = () => {
       setCategorias(res.categorias);
     });
   }, []);
-  const history = useHistory();
 
-  const logout = () => {
-    localStorage.clear();
-    history.push("/login");
-  };
+  const logout = () => localStorage.clear();
 
   return (
     <>
@@ -38,7 +34,7 @@ const NavBar = () => {
               {categorias.map((categoria) => (
                 <NavDropdown.Item
                   as={Link}
-                  to={`/categId/${categoria._id}`}
+                  href={`/category/${categoria._id}`}
                   key={categoria._id}
                 >
                   {categoria.nombre}
@@ -47,7 +43,7 @@ const NavBar = () => {
             </NavDropdown>
           </Navbar.Brand>
           {/* Boton desplegable */}
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} href="/">
             Yoxed
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -62,7 +58,7 @@ const NavBar = () => {
               >
                 <NavDropdown.Item
                   as={Link}
-                  to="/user"
+                  href="/user"
                   className="nav-link droopdown-nav ps-2"
                   style={{ color: "black" }}
                 >
@@ -71,7 +67,7 @@ const NavBar = () => {
                 <NavDropdown.Item
                   as={Link}
                   className="nav-link droopdown-nav ps-2"
-                  to="/admin"
+                  href="/admin"
                   style={{ color: "black" }}
                 >
                   <i className="fas fa-cogs"></i> Admin

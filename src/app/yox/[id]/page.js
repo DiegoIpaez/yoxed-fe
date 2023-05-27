@@ -1,11 +1,11 @@
+"use client"
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getYox } from "../services/yoxs.service";
-import { getComentariosYox } from "../services/commentary.service";
-import Comentario from "../components/Comentario";
+import { getYox } from "../../../services/yoxs.service";
+import { getComentariosYox } from "../../../services/commentary.service";
+import Comentario from "../../../components/Comentario";
 
-const YoxId = () => {
-  const { id } = useParams();
+const YoxId = ({ params }) => {
+  const { id } = params;
   const [yoxId, setYoxId] = useState([]);
   const [categoriaYox, setCategoriaYox] = useState([]);
   const [userYox, setuserYox] = useState([]);

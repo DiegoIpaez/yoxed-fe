@@ -1,15 +1,15 @@
+"use client"
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getYoxCateg } from "../services/yoxs.service";
-import YoxCard from "../components/YoxCard";
+import { getYoxCateg } from "../../../services/yoxs.service";
+import YoxCard from "../../../components/YoxCard";
 
 const initialValues = {
   data: [],
   loading: true,
 };
 
-const CategoriaId = () => {
-  const { id } = useParams();
+const CategoriaId = ({ params }) => {
+  const { id } = params;
   const [yoxCateg, setYoxCateg] = useState(initialValues);
 
   useEffect(() => {
