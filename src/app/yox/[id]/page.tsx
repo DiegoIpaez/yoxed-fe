@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getYox } from "../../../services/yoxs.service";
-import { getComentariosYox } from "../../../services/commentary.service";
+import { getYox, getComentariosYox } from '../../../services';
 import Comments from "../../../components/Comments";
-import { Yox, Category, User } from "../../../models";
+import type { Yox, Category, User } from "../../../models";
 
 interface Params {
   params: {
@@ -89,7 +88,7 @@ const YoxId = ({ params }: Params) => {
               <Comments
                 comments={comments}
                 totalComents={totalComents}
-                userYox={userYox}
+                author={userYox}
                 id={id}
               />
             </div>
