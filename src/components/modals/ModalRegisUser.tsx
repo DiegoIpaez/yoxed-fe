@@ -3,8 +3,12 @@ import { postUsuario } from "../../services/user.service";
 import { Modal, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
+interface Props {
+  show: boolean;
+  handleClose: () => void;
+}
 
-const ModalRegisUser = ({ show, handleClose }) => {
+const ModalRegisUser = ({ show, handleClose }: Props) => {
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     nombre: "",
@@ -14,14 +18,14 @@ const ModalRegisUser = ({ show, handleClose }) => {
     rol: "USER_ROLE",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormValue({
       ...formValue,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     setLoading(true);
@@ -55,7 +59,8 @@ const ModalRegisUser = ({ show, handleClose }) => {
         <div className="cuerpoModal">
           <Modal.Header className="tituloModal">
             <Modal.Title className="text-white">
-              <img src={"registrarse"} className="logoRegis" alt="" />
+              {/*eslint-disable-next-line @next/next/no-img-element*/}
+              <img src={"registrarse"} className="logoRegis" alt="regis-img" />
             </Modal.Title>
           </Modal.Header>
           <form onSubmit={handleSubmit}>

@@ -6,7 +6,13 @@ import {
 } from "../../services/category.service";
 import { Modal, Button } from "react-bootstrap";
 
-const ModalCateg = ({ show, handleClose, actualizar }) => {
+interface Props {
+  show: boolean;
+  handleClose: () => void;
+  actualizar: boolean;
+}
+
+const ModalCateg = ({ show, handleClose, actualizar }: Props) => {
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     nombre: "",
@@ -25,7 +31,7 @@ const ModalCateg = ({ show, handleClose, actualizar }) => {
     }
   }, [actualizar]);
 
-  const handleChange = ({ target }) => {
+  const handleChange = ({ target }: any) => {
     if (target.name === "disponible") {
       setFormValue({
         ...formValue,
@@ -40,7 +46,7 @@ const ModalCateg = ({ show, handleClose, actualizar }) => {
   };
 
   //-----------------------------------
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     setLoading(true);

@@ -1,6 +1,6 @@
 import { API_ROUTES, BASE_URL } from "../constants";
 
-export const postAuth = async (body) => {
+export const postAuth = async (body: object) => {
   try {
     const url = `${BASE_URL}${API_ROUTES.auth}`;
 

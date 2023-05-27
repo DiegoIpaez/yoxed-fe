@@ -1,6 +1,11 @@
-import React from "react";
+interface Props {
+  totPag: number;
+  pagina: number;
+  setPagina: (param: number) => void;
+  limite?: number;
+}
 
-const BotonPag = ({ totPag, pagina, setPagina, limite = 4 }) => {
+const BotonPag = ({ totPag, pagina, setPagina, limite = 4 }: Props) => {
   let total = totPag;
 
   const nextPag = () => {

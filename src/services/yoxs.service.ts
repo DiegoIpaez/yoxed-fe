@@ -1,6 +1,8 @@
-const url = "http://localhost:2021/api/comentarios";
+import { API_ROUTES, BASE_URL } from "../constants";
 
-export const getComentarios = async (desde) => {
+const url = `${BASE_URL}${API_ROUTES.yoxs}`;
+
+export const getYoxs = async (desde: number) => {
   try {
     const resp = await fetch(`${url}?desde=${desde}`, {
       method: "GET",
@@ -10,7 +12,6 @@ export const getComentarios = async (desde) => {
       },
     });
     const data = await resp.json();
-
     return data;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Server Error";
@@ -18,7 +19,7 @@ export const getComentarios = async (desde) => {
   }
 };
 
-export const getComentario = async (id) => {
+export const getYox = async (id: string) => {
   try {
     const resp = await fetch(`${url}/${id}`, {
       method: "GET",
@@ -36,9 +37,9 @@ export const getComentario = async (id) => {
   }
 };
 
-export const getComentariosYox = async (id) => {
+export const getYoxCateg = async (id: string) => {
   try {
-    const resp = await fetch(`${url}/yoxId/${id}`, {
+    const resp = await fetch(`${url}/categId/${id}`, {
       method: "GET",
 
       headers: {
@@ -54,18 +55,17 @@ export const getComentariosYox = async (id) => {
   }
 };
 
-export const postComentario = async (payload) => {
+export const postYox = async (payload: object) => {
   try {
     const resp = await fetch(`${url}`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "x-token": JSON.parse(localStorage.getItem("auth")).token,
+        "x-token": JSON.parse(localStorage.getItem("auth") ?? '').token,
       },
     });
     const data = await resp.json();
-
     return data;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Server Error";
@@ -73,14 +73,14 @@ export const postComentario = async (payload) => {
   }
 };
 
-export const putComentario = async (id, payload) => {
+export const putYox = async (id: string, payload: object) => {
   try {
     const resp = await fetch(`${url}/${id}`, {
       method: "PUT",
       body: JSON.stringify(payload),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "x-token": JSON.parse(localStorage.getItem("auth")).token,
+        "x-token": JSON.parse(localStorage.getItem("auth") ?? '').token,
       },
     });
     const data = await resp.json();
@@ -92,14 +92,14 @@ export const putComentario = async (id, payload) => {
   }
 };
 
-export const delComentario = async (id) => {
+export const deleteYox = async (id: string) => {
   try {
     const resp = await fetch(`${url}/${id}`, {
       method: "DELETE",
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "x-token": JSON.parse(localStorage.getItem("auth")).token,
+        "x-token": JSON.parse(localStorage.getItem("auth") ?? '').token,
       },
     });
     const data = await resp.json();

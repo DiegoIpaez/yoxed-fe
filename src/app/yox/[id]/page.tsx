@@ -1,30 +1,37 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { getYox } from "../../../services/yoxs.service";
 import { getComentariosYox } from "../../../services/commentary.service";
-import Comentario from "../../../components/Comentario";
+import Comments from "../../../components/Comments";
+import { Yox, Category, User } from "../../../models";
 
-const YoxId = ({ params }) => {
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+const YoxId = ({ params }: Params) => {
   const { id } = params;
-  const [yoxId, setYoxId] = useState([]);
-  const [categoriaYox, setCategoriaYox] = useState([]);
-  const [userYox, setuserYox] = useState([]);
-  const [comentarioId, setComentarioId] = useState([]);
-  const [totalComent, setTotalComent] = useState("");
+  const [yox, setYox] = useState<Yox>({});
+  const [yoxCategory, setYoxCategory] = useState<Category>({});
+  const [userYox, setUserYox] = useState<User>({});
+  const [comments, setComments] = useState([]);
+  const [totalComents, setTotalComents] = useState(0);
 
   useEffect(() => {
     try {
       const fetchData = async () => {
         const res = await getYox(id);
-        setYoxId(res.yox);
-        setuserYox(res.yox.usuario);
-        setCategoriaYox(res.yox.categoria);
+        setYox(res.yox);
+        setUserYox(res.yox.usuario);
+        setYoxCategory(res.yox.categoria);
       };
       fetchData();
     } catch (error) {
-      setYoxId([]);
-      setuserYox([]);
-      setCategoriaYox([]);
+      setYox({});
+      setUserYox({});
+      setYoxCategory({});
     }
   }, [id]);
 
@@ -32,13 +39,13 @@ const YoxId = ({ params }) => {
     try {
       const fetchData = async () => {
         const res = await getComentariosYox(id);
-        setComentarioId(res.comentario);
-      setTotalComent(res.Total);
+        setComments(res.comentario);
+        setTotalComents(res.Total);
       };
       fetchData();
     } catch (error) {
-      setComentarioId([]);
-      setTotalComent("");
+      setComments([]);
+      setTotalComents(0);
     }
   }, [id]);
 
@@ -53,12 +60,13 @@ const YoxId = ({ params }) => {
                 className="row bg-dark pt-2 pb-2 text-white mb-3"
                 style={{ borderRadius: "9px" }}
               >
-                <span>YOXED/{categoriaYox.nombre}</span>
+                <span>YOXED/{yoxCategory.nombre}</span>
               </div>
               <div className="row text-white">
                 <div className="col-md-7 col-12 mb-2 ps-0 pe-0">
+                  {/*eslint-disable-next-line @next/next/no-img-element*/}
                   <img
-                    src={yoxId.url}
+                    src={yox.url}
                     style={{
                       width: "100%",
                       height: "400px",
@@ -68,8 +76,8 @@ const YoxId = ({ params }) => {
                   />
                 </div>
                 <div className="col-md-5 col-12">
-                  <h3>{yoxId.titulo}</h3>
-                  <p>{yoxId.descripcion}</p>
+                  <h3>{yox.titulo}</h3>
+                  <p>{yox.descripcion}</p>
                 </div>
               </div>
             </div>
@@ -78,9 +86,9 @@ const YoxId = ({ params }) => {
           {/* Comentarios */}
           <div className="col-md-6 col-12">
             <div className="container  ps-0 pe-0">
-              <Comentario
-                comentarioId={comentarioId}
-                totalComent={totalComent}
+              <Comments
+                comments={comments}
+                totalComents={totalComents}
                 userYox={userYox}
                 id={id}
               />

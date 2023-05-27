@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { postComentario, getComentario } from "../services/commentary.service";
+import type { Commentary, User } from "../models";
 
-const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
+interface Props {
+  comments: Commentary[];
+  totalComents: number;
+  author: User;
+  id: string;
+}
+const Comments = ({ comments, totalComents, author, id }: Props) => {
   const [actualizar, setActualizar] = useState("");
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -22,9 +29,9 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
         });
       });
     }
-  }, [actualizar,id]);
+  }, [actualizar, id]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormValue({
       ...formValue,
       [e.target.name]: e.target.value,
@@ -32,7 +39,7 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
   };
 
   //-----------------------------------
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     setLoading(true);
@@ -62,7 +69,7 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
           borderBottomLeftRadius: "9px",
         }}
       >
-        <h5>Comentarios({totalComent})</h5>
+        <h5>Comentarios({totalComents})</h5>
       </div>
       {/* POST */}
       <div
@@ -73,7 +80,6 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
           <div className="form-group">
             <label></label>
             <textarea
-              type="text"
               name="comentario"
               className="form-control"
               value={formValue.comentario}
@@ -102,7 +108,7 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
       </div>
       {/* Fin de POST */}
       {/* COMENTARIOS */}
-      {comentarioId.map((comentario) => (
+      {comments.map((comentario) => (
         <div
           className="row mb-1 pt-2 pb-2 text-white bg-dark  ps-0 pe-0"
           style={{
@@ -112,6 +118,7 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
           key={comentario._id}
         >
           <div className="col-1 pe-0">
+            {/*eslint-disable-next-line @next/next/no-img-element*/}
             <img
               style={{ width: "100%", height: "50px", borderRadius: "7px" }}
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2KJta8kWIZZuPXXKTB4LuhCDjh-yiecCt9BSBJ0WAAhFogOyBfZuTn8hlegwNRRFnShk&usqp=CAU"
@@ -121,15 +128,16 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
           <div className="col-11">
             <h6>
               User
-              {comentario.usuario["uid"] === userYox.uid ? (
+              {comentario?.usuario?.uid === author.uid ? (
                 <>
-                  {comentario.usuario["nombre"]} <span style={{ color: "red" }}>OP</span>{" "}
+                  {comentario?.usuario?.nombre}{" "}
+                  <span style={{ color: "red" }}>OP</span>{" "}
                 </>
               ) : (
-                <>{comentario.usuario["nombre"]}</>
+                <>{comentario?.usuario?.nombre}</>
               )}
             </h6>
-            <p>{comentario.comentario}</p>
+            <p>{comentario?.comentario}</p>
           </div>
         </div>
       ))}
@@ -137,4 +145,4 @@ const Comentario = ({ comentarioId, totalComent, userYox, id }) => {
   );
 };
 
-export default Comentario;
+export default Comments;

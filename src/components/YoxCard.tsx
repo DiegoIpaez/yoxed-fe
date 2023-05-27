@@ -1,7 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import { Yox } from "../models";
 
-const YoxCard = ({ yox }) => {
+interface Props {
+  yox: {
+    loading: boolean;
+    data: Yox[];
+  };
+}
+
+const YoxCard = ({ yox }: Props) => {
   return (
     <>
       {yox.loading ? (
@@ -15,6 +23,7 @@ const YoxCard = ({ yox }) => {
               style={{ position: "relative" }}
             >
               <Link href={`/yox/${yox._id}`}>
+                {/*eslint-disable-next-line @next/next/no-img-element*/}
                 <img
                   src={
                     yox.url
@@ -33,7 +42,9 @@ const YoxCard = ({ yox }) => {
                     borderRadius: "7px",
                   }}
                 >
-                  {yox.categoria["nombre"]}
+                  {typeof yox?.categoria === "string"
+                    ? "-"
+                    : yox?.categoria?.nombre}
                 </h6>
                 <h5
                   className="text-white ps-2"

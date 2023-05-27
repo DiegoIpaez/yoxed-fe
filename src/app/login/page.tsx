@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { postAuth } from "../../services/auth.service";
 import ModalRegisUser from "../../components/modals/ModalRegisUser";
@@ -14,7 +14,10 @@ export default function Login() {
 
   const [btnDisable, setBtnDisable] = useState(false);
 
-  const [login, setLogin] = useState({});
+  const [login, setLogin] = useState({
+    ok: false,
+    msg: '',
+  });
 
 //   useEffect(() => {
 //     if (login.token) {
@@ -31,14 +34,14 @@ export default function Login() {
     };
   }, []);
 
-  const handleChange = ({ target }) => {
+  const handleChange = ({ target }: any) => {
     setFormvalue({
       ...formValue,
       [target.name]: target.value,
     });
   };
 
-  const handleSumbit = (e) => {
+  const handleSumbit = (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
     const { email, password } = formValue;
 
@@ -72,7 +75,7 @@ export default function Login() {
           <div className="container">
             {/* Cuerpo Login*/}
             <div className="row text-white ">
-              <Form onSubmit={handleSumbit}>
+              <Form onSubmit={(e) => handleSumbit(e)}>
                 <h3 className="text-center"> Bienvenido a Yoxed</h3>
 
                 <hr className="userlogin-hr mb-4" style={{ color: 'white' }} />
@@ -91,7 +94,7 @@ export default function Login() {
                     minLength={8}
                   />
                   <Form.Text className="text-muted ps-1">
-                    (* We'll never share your email with anyone else.)
+                    We ll never share your email with anyone else.
                   </Form.Text>
                 </Form.Group>
 
@@ -127,9 +130,9 @@ export default function Login() {
                   </button>
                 </div>
 
-                {login.ok === false && (
+                {login?.ok === false && (
                   <div className="alert alert-danger mt-3" role="alert">
-                    {login.msg}
+                    {login?.msg}
                   </div>
                 )}
               </Form>

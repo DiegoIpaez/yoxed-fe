@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { getCategorias } from "../../services/category.service";
 import { postYox, getYox } from "../../services/yoxs.service";
+import { type Category } from '../../models'
 
-const ModalPostYox = ({ show, handleClose, actualizar }) => {
-  const [categorias, setCategorias] = useState([]);
+interface Props {
+  show: boolean;
+  handleClose: () => void;
+  actualizar: boolean;
+}
+
+const ModalPostYox = ({ show, handleClose, actualizar }: Props) => {
+  const [categorias, setCategorias] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
   const [formValue, setFormValue] = useState({
     titulo: "",
@@ -38,7 +45,7 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
     }
   }, [actualizar]);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormValue({
       ...formValue,
       [e.target.name]: e.target.value,
@@ -46,7 +53,7 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
   };
 
   //-----------------------------------
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
 
     setLoading(true);
@@ -125,7 +132,6 @@ const ModalPostYox = ({ show, handleClose, actualizar }) => {
               <div className="form-group mb-3">
                 <label>Descripcion</label>
                 <textarea
-                  type="text"
                   name="descripcion"
                   className="form-control"
                   placeholder="Escriba el redactaso.."

@@ -3,12 +3,18 @@ import React, { useEffect, useState } from "react";
 import { getYoxCateg } from "../../../services/yoxs.service";
 import YoxCard from "../../../components/YoxCard";
 
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
 const initialValues = {
   data: [],
   loading: true,
 };
 
-const CategoriaId = ({ params }) => {
+const CategoriaId = ({ params }: Params) => {
   const { id } = params;
   const [yoxCateg, setYoxCateg] = useState(initialValues);
 
