@@ -2,7 +2,7 @@ import { API_ROUTES, BASE_URL } from "../constants";
 
 const url = `${BASE_URL}${API_ROUTES.category}`;
 
-export const getCategorias = async (desde: number) => {
+export const getCategorias = async (desde?: number) => {
   try {
     const resp = await fetch(`${url}?desde=${desde}`, {
       method: "GET",
