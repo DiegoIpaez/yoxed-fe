@@ -1,23 +1,29 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getCategorias } from "../services/category.service";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import ModalPostYox from "./modals/ModalPostYox";
-import { Category } from '../models';
+import { Category } from "../models";
 
 const NavBar = () => {
   const [categorias, setCategorias] = useState<Category[]>([]);
-  const [actualizar, setActualizar] = useState("");
+  const [actualizar, setActualizar] = useState(false);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    getCategorias().then((res) => {
-      setCategorias(res.categorias);
-    });
+    const fetchData = async () => {
+      try {
+        const response = await getCategorias();
+        setCategorias(response?.categorias);
+      } catch (error) {
+        setCategorias([]);
+      }
+    };
+    fetchData();
   }, []);
 
   const logout = () => localStorage.clear();
@@ -87,7 +93,7 @@ const NavBar = () => {
                 <button
                   className="btn btn-primary text-white"
                   onClick={() => {
-                    setActualizar("");
+                    setActualizar(true);
                     handleShow();
                   }}
                 >

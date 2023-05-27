@@ -1,6 +1,6 @@
 const url = "http://localhost:2021/api/comentarios";
 
-export const getComentarios = async (desde: number) => {
+export const getComentarios = async (desde?: number) => {
   try {
     const resp = await fetch(`${url}?desde=${desde}`, {
       method: "GET",

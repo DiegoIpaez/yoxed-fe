@@ -1,6 +1,6 @@
 const url = "https://yoxed-app.herokuapp.com";
 
-export const getUsuarios = async (desde: number) => {
+export const getUsuarios = async (desde?: number) => {
   try {
     const resp = await fetch(`${url}/api/usuarios?desde=${desde}`, {
       method: "GET",
