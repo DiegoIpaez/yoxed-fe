@@ -1,8 +1,8 @@
-const url = "https://yoxed-app.herokuapp.com";
+const url = "http://localhost:2021/api/comentarios";
 
-export const getUsuarios = async (desde) => {
+export const getComentarios = async (desde: number) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios?desde=${desde}`, {
+    const resp = await fetch(`${url}?desde=${desde}`, {
       method: "GET",
 
       headers: {
@@ -18,9 +18,9 @@ export const getUsuarios = async (desde) => {
   }
 };
 
-export const getUsuarioId = async (id) => {
+export const getComentario = async (id: string) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios/${id}`, {
+    const resp = await fetch(`${url}/${id}`, {
       method: "GET",
 
       headers: {
@@ -36,13 +36,32 @@ export const getUsuarioId = async (id) => {
   }
 };
 
-export const postUsuario = async (payload) => {
+export const getComentariosYox = async (id: string) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios`, {
+    const resp = await fetch(`${url}/yoxId/${id}`, {
+      method: "GET",
+
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const data = await resp.json();
+
+    return data;
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : "Server Error";
+    throw new Error(errorMsg);
+  }
+};
+
+export const postComentario = async (payload: object) => {
+  try {
+    const resp = await fetch(`${url}`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
+        "x-token": JSON.parse(localStorage.getItem("auth") ?? '').token,
       },
     });
     const data = await resp.json();
@@ -54,17 +73,18 @@ export const postUsuario = async (payload) => {
   }
 };
 
-export const putUsuario = async (id, payload) => {
+export const putComentario = async (id: string, payload: object) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios/${id}`, {
+    const resp = await fetch(`${url}/${id}`, {
       method: "PUT",
       body: JSON.stringify(payload),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "x-token": JSON.parse(localStorage.getItem("auth")).token,
+        "x-token": JSON.parse(localStorage.getItem("auth") ?? '').token,
       },
     });
     const data = await resp.json();
+
     return data;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : "Server Error";
@@ -72,14 +92,14 @@ export const putUsuario = async (id, payload) => {
   }
 };
 
-export const deleteUsuario = async (id) => {
+export const delComentario = async (id: string) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios/${id}`, {
+    const resp = await fetch(`${url}/${id}`, {
       method: "DELETE",
 
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "x-token": JSON.parse(localStorage.getItem("auth")).token,
+        "x-token": JSON.parse(localStorage.getItem("auth") ?? '').token,
       },
     });
     const data = await resp.json();

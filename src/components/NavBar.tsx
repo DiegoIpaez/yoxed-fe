@@ -4,9 +4,10 @@ import Link from "next/link";
 import { getCategorias } from "../services/category.service";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 import ModalPostYox from "./modals/ModalPostYox";
+import { Category } from '../models';
 
 const NavBar = () => {
-  const [categorias, setCategorias] = useState([]);
+  const [categorias, setCategorias] = useState<Category[]>([]);
   const [actualizar, setActualizar] = useState("");
   const [show, setShow] = useState(false);
 
