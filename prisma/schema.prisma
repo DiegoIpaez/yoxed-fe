@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum roles {
+  USER
+  ADMIN
+}
+
+model users {
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String   @unique
+  role      roles    @default(USER)
+  uid       String   @default(uuid())
+  isDeleted Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  yoxs       yoxs[]
+  categories categories[]
+  comments   comments[]
+
+  @@index([email])
+}
+
+model categories {
+  id        Int      @id @default(autoincrement())
+  name      String
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  yoxs      yoxs[]
+
+  user users @relation(fields: [userId], references: [id])
+}
+
+model comments {
+  id          Int      @id @default(autoincrement())
+  yoxId       Int
+  userId      Int
+  description String
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user users @relation(fields: [userId], references: [id])
+  yox  yoxs  @relation(fields: [yoxId], references: [id])
+}
+
+model yoxs {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  fileUrl     String
+  userId      Int
+  categoryId  Int
+  isDeleted   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user     users      @relation(fields: [userId], references: [id])
+  category categories @relation(fields: [categoryId], references: [id])
+  comments comments[]
+}
