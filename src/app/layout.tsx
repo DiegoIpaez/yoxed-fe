@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./index.css";
-import NavBar from "../components/NavBar";
+import NavBar from "@/components/Navbar/NavBar";
 
 export const metadata = {
   title: "NEXT INIT",
