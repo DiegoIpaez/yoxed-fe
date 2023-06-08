@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { getCategorias } from "../../services/category.service";
 import { postYox, getYox } from "../../services/yoxs.service";
-import { type Category } from '../../models'
+import { type Category } from "../../models";
 
 interface Props {
   show: boolean;
   handleClose: () => void;
-  actualizar: boolean;
 }
 
-const ModalPostYox = ({ show, handleClose, actualizar }: Props) => {
+const INITIAL_VALUE = {
+  titulo: "",
+  descripcion: "",
+  url: "",
+  categoria: "",
+}
+
+const ModalPostYox = ({ show, handleClose }: Props) => {
   const [categorias, setCategorias] = useState<Category[]>([]);
   const [loading, setLoading] = useState(false);
-  const [formValue, setFormValue] = useState({
-    titulo: "",
-    descripcion: "",
-    url: "",
-    categoria: "",
-  });
+  const [formValue, setFormValue] = useState(INITIAL_VALUE);
 
   useEffect(() => {
     getCategorias().then((respuesta) => {
@@ -26,55 +27,22 @@ const ModalPostYox = ({ show, handleClose, actualizar }: Props) => {
     });
   }, []);
 
-  useEffect(() => {
-    setFormValue({
-      titulo: "",
-      descripcion: "",
-      url: "",
-      categoria: "",
-    });
-    if (actualizar) {
-      getYox(actualizar).then((respuesta) => {
-        setFormValue({
-          titulo: respuesta.yox.titulo,
-          descripcion: respuesta.yox.descripcion,
-          url: respuesta.yox.url,
-          categoria: respuesta.yox.url,
-        });
-      });
-    }
-  }, [actualizar]);
-
-  const handleChange = (e: any) => {
+  const handleChange = (e: any) =>
     setFormValue({
       ...formValue,
       [e.target.name]: e.target.value,
     });
-  };
 
-  //-----------------------------------
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-
-    setLoading(true);
-
-    postYox(formValue).then((respuesta) => {
-      if (respuesta.errors) {
-        setLoading(false);
-        return window.alert(respuesta.errors[0].msg);
-      }
-      if (respuesta.msg) {
-        window.alert(respuesta.msg);
-      }
-      setLoading(false);
-      setFormValue({
-        titulo: "",
-        descripcion: "",
-        url: "",
-        categoria: "",
-      });
+  const handleSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      await postYox(formValue);
+      setFormValue(INITIAL_VALUE)
       handleClose();
-    });
+    } catch (error) {
+      window.alert(`Error: ${error}`);
+    }
   };
 
   return (

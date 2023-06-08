@@ -5,17 +5,23 @@ import ModalPostYox from "@/components/modals/ModalPostYox";
 
 export const ProfileDropdownNavbar = () => {
   const [user, setUser] = useState<any>(null);
-  const [actualizar, setActualizar] = useState(false);
   const [show, setShow] = useState(false);
 
   const handleUser = () => {
     const auth = localStorage.getItem("auth");
     const user = auth ? JSON.parse(auth) : null;
     setUser(user);
+    return user;
   };
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    if (user) return setShow(true);
+
+    const token = handleUser();
+    if (!token) return window.alert("No hay token");
+    setShow(true);
+  };
 
   const logout = () => localStorage.clear();
 
@@ -64,10 +70,7 @@ export const ProfileDropdownNavbar = () => {
         <Nav.Link eventKey={2} className=" ps-1">
           <button
             className="btn btn-primary text-white"
-            onClick={() => {
-              setActualizar(true);
-              handleShow();
-            }}
+            onClick={() => handleShow()}
           >
             YOX <i className="far fa-plus-square"></i>
           </button>
@@ -75,11 +78,7 @@ export const ProfileDropdownNavbar = () => {
         <Nav.Link className="pt-3 ps-1"></Nav.Link>
         <Nav.Link className="pt-3 ps-1"></Nav.Link>
       </Nav>
-      <ModalPostYox
-        show={show}
-        handleClose={handleClose}
-        actualizar={actualizar}
-      />
+      <ModalPostYox show={show} handleClose={handleClose} />
     </>
   );
 };
