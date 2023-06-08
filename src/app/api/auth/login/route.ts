@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
-import { handleServerError } from "@/utils";
+import { generateToken, handleServerError } from "@/utils";
 import { USER_HTTP_ERRORS } from "@/constants";
 
 export const POST = async (request: NextRequest) => {
@@ -23,8 +23,8 @@ export const POST = async (request: NextRequest) => {
     if (!user) {
       return NextResponse.json(USER_ALREADY_EXISTS.message, { status: 400 });
     }
-
-    return NextResponse.json({ data: { user } }, { status: 200 });
+    const token = generateToken(user?.uid);
+    return NextResponse.json({ data: { user, token } }, { status: 200 });
   } catch (error) {
     return handleServerError(error);
   }

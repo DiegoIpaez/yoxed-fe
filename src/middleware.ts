@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { validJWT } from "@/utils";
 
-const middleware = (request: NextRequest) => {
-  const origin = request.headers.get("origin");
-  console.log({ origin });
-
+const middleware = async (request: NextRequest) => {
   const response = NextResponse.next();
   response.headers.set("Access-Control-Allow-Origin", "*");
   response.headers.set(
@@ -16,15 +14,18 @@ const middleware = (request: NextRequest) => {
   );
   response.headers.set("Access-Control-Max-Age", "86400");
 
-  console.log("Middleware");
-  console.log(request.method);
-  console.log(request.url);
+  const tokenlessRoute = request.nextUrl.pathname.startsWith("/api/auth");
 
-  return response;
+  console.log("--- Middleware ---");
+  console.log(`${request.method} - ${request.url}`);
+
+  if (tokenlessRoute) return response;
+  const validToken = await validJWT(response, request);
+  return validToken;
 };
 
 export const config = {
-  matcher: "/api/:path",
+  matcher: "/api/:path*",
 };
 
 export default middleware;

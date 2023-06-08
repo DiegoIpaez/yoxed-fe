@@ -1,8 +1,10 @@
 export interface User {
-  estado?: boolean;
-  nombre?: string;
-  apellido?: string;
+  id?: number;
+  username?: string;
   email?: string;
-  rol?: string;
+  role?: string;
   uid?: string;
+  isDeleted?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
