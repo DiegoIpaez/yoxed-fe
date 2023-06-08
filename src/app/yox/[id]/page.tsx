@@ -1,8 +1,5 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { getYox, getComentariosYox } from '../../../services';
-import Comments from "../../../components/Comments";
-import type { Yox, Category, User } from "../../../models";
+import { getYox, getComentariosYox } from "@/services";
+import Comments from "@/components/Comments";
 
 interface Params {
   params: {
@@ -10,43 +7,34 @@ interface Params {
   };
 }
 
-const YoxId = ({ params }: Params) => {
+const DEFAULT_VALUE = {};
+
+const fetchData = async (id: string) => {
+  try {
+    const { yox } = await getYox(id);
+    return yox;
+  } catch (error) {
+    return {
+      yox: DEFAULT_VALUE,
+      usuario: DEFAULT_VALUE,
+      categoria: DEFAULT_VALUE,
+    };
+  }
+};
+
+const fetchComments = async (id: string) => {
+  try {
+    const { comentario, Total } = await getComentariosYox(id);
+    return { comments: comentario, totalComents: Total };
+  } catch (error) {
+    return { comments: [], totalComents: 0 };
+  }
+};
+
+const YoxId = async ({ params }: Params) => {
   const { id } = params;
-  const [yox, setYox] = useState<Yox>({});
-  const [yoxCategory, setYoxCategory] = useState<Category>({});
-  const [userYox, setUserYox] = useState<User>({});
-  const [comments, setComments] = useState([]);
-  const [totalComents, setTotalComents] = useState(0);
-
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const res = await getYox(id);
-        setYox(res.yox);
-        setUserYox(res.yox.usuario);
-        setYoxCategory(res.yox.categoria);
-      };
-      fetchData();
-    } catch (error) {
-      setYox({});
-      setUserYox({});
-      setYoxCategory({});
-    }
-  }, [id]);
-
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const res = await getComentariosYox(id);
-        setComments(res.comentario);
-        setTotalComents(res.Total);
-      };
-      fetchData();
-    } catch (error) {
-      setComments([]);
-      setTotalComents(0);
-    }
-  }, [id]);
+  const yox = await fetchData(id);
+  const { comments, totalComents } = await fetchComments(id);
 
   return (
     <>
@@ -59,7 +47,7 @@ const YoxId = ({ params }: Params) => {
                 className="row bg-dark pt-2 pb-2 text-white mb-3"
                 style={{ borderRadius: "9px" }}
               >
-                <span>YOXED/{yoxCategory.nombre}</span>
+                <span>YOXED/{yox?.categoria?.nombre}</span>
               </div>
               <div className="row text-white">
                 <div className="col-md-7 col-12 mb-2 ps-0 pe-0">
@@ -88,7 +76,7 @@ const YoxId = ({ params }: Params) => {
               <Comments
                 comments={comments}
                 totalComents={totalComents}
-                author={userYox}
+                author={yox?.usuario}
                 id={id}
               />
             </div>

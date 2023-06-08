@@ -1,6 +1,7 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { postComentario, getComentario } from "../services/commentary.service";
-import type { Commentary, User } from "../models";
+import { postComentario, getComentario } from "@/services";
+import type { Commentary, User } from "@/models";
 
 interface Props {
   comments: Commentary[];
@@ -38,26 +39,20 @@ const Comments = ({ comments, totalComents, author, id }: Props) => {
     });
   };
 
-  //-----------------------------------
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-
-    setLoading(true);
-
-    postComentario(formValue).then((respuesta) => {
-      if (respuesta.errors) {
-        setLoading(false);
-        return window.alert(respuesta.errors[0].msg);
-      }
-      if (respuesta.msg) {
-        window.alert(respuesta.msg);
-      }
-      setLoading(false);
+  const handleSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      await postComentario(formValue);
       setFormValue({
         yox: id,
         comentario: "",
       });
-    });
+    } catch (error) {
+      window.alert(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

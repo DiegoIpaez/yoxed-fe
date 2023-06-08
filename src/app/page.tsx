@@ -1,28 +1,19 @@
-"use client"
-import React, { useEffect, useState } from "react";
-import { getYoxs } from "../services/yoxs.service";
-import YoxCard from "../components/YoxCard";
+import { getYoxs } from "@/services";
+import { YoxContainer } from "@/components/YoxCard";
 
-const Home = () => {
-  const [yox, setYox] = useState({
-    data: [],
-    loading: true,
-  });
+const fetchData = async () => {
+  try {
+    const { yoxs } = await getYoxs();
+    return yoxs;
+  } catch (error) {
+    return [];
+  }
+};
 
-  useEffect(() => {
-    getYoxs().then((res) => {
-      setYox({
-        data: res.yoxs,
-        loading: false,
-      });
-    });
-  }, []);
+const Home = async () => {
+  const yoxs = await fetchData();
 
-  return (
-    <div className="container-fluid">
-      <YoxCard yox={yox} />
-    </div>
-  );
+  return <YoxContainer yoxs={yoxs} />;
 };
 
 export default Home;
