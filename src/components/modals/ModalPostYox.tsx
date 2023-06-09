@@ -3,6 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import { getCategorias } from "../../services/category.service";
 import { postYox, getYox } from "../../services/yoxs.service";
 import { type Category } from "../../models";
+import { showMessage } from "@/utils/showMessage.util";
 
 interface Props {
   show: boolean;
@@ -41,7 +42,10 @@ const ModalPostYox = ({ show, handleClose }: Props) => {
       setFormValue(INITIAL_VALUE)
       handleClose();
     } catch (error) {
-      window.alert(`Error: ${error}`);
+      showMessage(
+        "warning",
+        "Hubo un error, intentelo de nuevo mas tarde."
+      );
     }
   };
 

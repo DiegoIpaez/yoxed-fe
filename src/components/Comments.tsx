@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { postComentario, getComentario } from "@/services";
 import type { Commentary, User } from "@/models";
+import { showMessage } from '@/utils/showMessage.util'
 
 interface Props {
   comments: Commentary[];
@@ -49,7 +50,7 @@ const Comments = ({ comments, totalComents, author, id }: Props) => {
         comentario: "",
       });
     } catch (error) {
-      window.alert(error);
+      showMessage("warning", "hubo un error al cargar los comentarios.")
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,10 @@
 "use client";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { postAuth } from "@/services/auth.service";
 import ModalRegisUser from "@/components/modals/ModalRegisUser";
+import { showMessage } from "@/utils/showMessage.util";
 
 function FormLogin() {
   const router = useRouter();
@@ -27,14 +28,19 @@ function FormLogin() {
     e.preventDefault();
     try {
       const data = await postAuth(formValue);
-      if (!data.token) throw new Error("Error al autenticarse, intentelo de nuevo.")
-      localStorage.setItem("auth", JSON.stringify(data))
-      router.push('/')
+      if (!data.token)
+        throw new Error("Error al autenticarse, intentelo de nuevo.");
+      localStorage.setItem("auth", JSON.stringify(data));
+      showMessage("success", "Felicidades, se ha autenticado correctamente!.");
+      router.push("/");
     } catch (error) {
-      window.alert('error:' + error)
+      showMessage(
+        "error",
+        "Hubo un error, verifique su correo y su contraseña."
+      );
     }
   };
-  
+
   return (
     <>
       <Form onSubmit={(e) => handleSumbit(e)}>

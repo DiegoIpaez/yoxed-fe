@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Nav, NavDropdown } from "react-bootstrap";
 import Link from "next/link";
 import ModalPostYox from "@/components/modals/ModalPostYox";
+import { showMessage } from '@/utils/showMessage.util'
 
 export const ProfileDropdownNavbar = () => {
+  const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [show, setShow] = useState(false);
 
@@ -19,11 +22,17 @@ export const ProfileDropdownNavbar = () => {
     if (user) return setShow(true);
 
     const token = handleUser();
-    if (!token) return window.alert("No hay token");
+    if (!token) return showMessage(
+      "warning",
+      "Debes iniciar sesion antes de realizar esta accion."
+    );
     setShow(true);
   };
 
-  const logout = () => localStorage.clear();
+  const logout = () => {
+    localStorage.clear()
+    router.push("/login");
+  };
 
   return (
     <>
