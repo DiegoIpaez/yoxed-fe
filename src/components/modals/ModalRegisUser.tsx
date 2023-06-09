@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { postUsuario } from "../../services/user.service";
 import { Modal, Button } from "react-bootstrap";
-import Swal from "sweetalert2";
+import { showMessage } from "@/utils/showMessage.util";
 
 interface Props {
   show: boolean;
   handleClose: () => void;
 }
 
+const INITIAL_VALUE = {
+  nombre: "",
+  apellido: "",
+  email: "",
+  password: "",
+  rol: "USER_ROLE",
+}
+
 const ModalRegisUser = ({ show, handleClose }: Props) => {
   const [loading, setLoading] = useState(false);
-  const [formValue, setFormValue] = useState({
-    nombre: "",
-    apellido: "",
-    email: "",
-    password: "",
-    rol: "USER_ROLE",
-  });
+  const [formValue, setFormValue] = useState(INITIAL_VALUE);
 
   const handleChange = (e: any) => {
     setFormValue({
@@ -25,32 +27,19 @@ const ModalRegisUser = ({ show, handleClose }: Props) => {
     });
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-
-    setLoading(true);
-
-    postUsuario(formValue).then((respuesta) => {
-      //   console.log(respuesta);
-      if (respuesta.errors) {
-        setLoading(false);
-        return window.alert(respuesta.errors[0].msg);
-      }
-      setLoading(false);
-      setFormValue({
-        nombre: "",
-        apellido: "",
-        email: "",
-        password: "",
-        rol: "USER_ROLE",
-      });
-      Swal.fire({
-        icon: "success",
-        title: "Muchas gracias!",
-        text: "Se ha registrado con exito",
-      });
+  const handleSubmit = async (e: any) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      await postUsuario(formValue);
+      setFormValue(INITIAL_VALUE)
       handleClose();
-    });
+    } catch (error) {
+      showMessage(
+        "warning",
+        "Hubo un error, intentelo de nuevo mas tarde."
+      );
+    }
   };
 
   return (
@@ -58,9 +47,9 @@ const ModalRegisUser = ({ show, handleClose }: Props) => {
       <Modal show={show} onHide={handleClose} centered>
         <div className="cuerpoModal">
           <Modal.Header className="tituloModal">
-            <Modal.Title className="text-white">
+            <Modal.Title className="text-secondary">
               {/*eslint-disable-next-line @next/next/no-img-element*/}
-              <img src={"registrarse"} className="logoRegis" alt="regis-img" />
+              Registro
             </Modal.Title>
           </Modal.Header>
           <form onSubmit={handleSubmit}>

@@ -1,8 +1,9 @@
-const url = "https://yoxed-app.herokuapp.com";
+import { API_ROUTES, BASE_URL } from "../constants";
+const url = `${BASE_URL}${API_ROUTES.users}`;
 
 export const getUsuarios = async (desde?: number) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios?desde=${desde}`, {
+    const resp = await fetch(`${url}?desde=${desde}`, {
       method: "GET",
 
       headers: {
@@ -20,7 +21,7 @@ export const getUsuarios = async (desde?: number) => {
 
 export const getUsuarioId = async (id: string) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios/${id}`, {
+    const resp = await fetch(`${url}/${id}`, {
       method: "GET",
 
       headers: {
@@ -38,7 +39,7 @@ export const getUsuarioId = async (id: string) => {
 
 export const postUsuario = async (payload: object) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios`, {
+    const resp = await fetch(`${url}`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -56,7 +57,7 @@ export const postUsuario = async (payload: object) => {
 
 export const putUsuario = async (id: string, payload: object) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios/${id}`, {
+    const resp = await fetch(`${url}/${id}`, {
       method: "PUT",
       body: JSON.stringify(payload),
       headers: {
@@ -74,7 +75,7 @@ export const putUsuario = async (id: string, payload: object) => {
 
 export const deleteUsuario = async (id: string) => {
   try {
-    const resp = await fetch(`${url}/api/usuarios/${id}`, {
+    const resp = await fetch(`${url}/${id}`, {
       method: "DELETE",
 
       headers: {

@@ -89,7 +89,7 @@ function FormLogin() {
           </Button>
         </div>
         <div className="text-center">
-          <button className="btn btn-registrar-login mt-2" onClick={handleShow}>
+          <button className="btn btn-registrar-login mt-2" type="button" onClick={() => handleShow()}>
             ¿No tienes una cuenta? Haz clic aquí
           </button>
         </div>

@@ -126,11 +126,11 @@ const Comments = ({ comments, totalComents, author, id }: Props) => {
               User
               {comentario?.usuario?.uid === author.uid ? (
                 <>
-                  {comentario?.usuario?.nombre}{" "}
+                  {comentario?._id}{" "}
                   <span style={{ color: "red" }}>OP</span>{" "}
                 </>
               ) : (
-                <>{comentario?.usuario?.nombre}</>
+                <>{comentario?._id}</>
               )}
             </h6>
             <p>{comentario?.comentario}</p>
